@@ -19,13 +19,17 @@ public final class Constants {
 
 
   public static class CanIds {
-    public static final int FLYWHEEL = 1;
+    public static final int FLYWHEEL1 = 4;
+     public static final int FLYWHEEL2 = 5;
+      public static final int FLYWHEEL3 = 6;
   }
 
 
 
   public static class MotorsetPoint{
-    public static final double FLYWHEEL_FUll_SPEED = 500;
+    public static final double FLYWHEEL_FUll_SPEED = 5000;
     public static final double FLYWHEEL_HALF_SPEED = 2500;
+    public static final double FLYWHEEL_REVERSE = -5000;
+    public static final double FLYWHEEL_TOLERANCE = 10 ;
   }
 }

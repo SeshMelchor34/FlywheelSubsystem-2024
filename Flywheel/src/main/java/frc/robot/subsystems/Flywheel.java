@@ -17,24 +17,47 @@ import frc.robot.Constants.MotorsetPoint;
 
 public class Flywheel extends SubsystemBase {
   
-  private final CANSparkMax motor = new CANSparkMax (CanIds.FLYWHEEL,MotorType.kBrushless);
+  private final CANSparkMax flywheelMotor1 = new CANSparkMax (CanIds.FLYWHEEL1,MotorType.kBrushless);
+  private final CANSparkMax flywheelMotor2 = new CANSparkMax (CanIds.FLYWHEEL2,MotorType.kBrushless);
+  private final CANSparkMax flywheelMotor3 = new CANSparkMax (CanIds.FLYWHEEL3,MotorType.kBrushless);
+
+  private double motorsetPoint = 0 ;
+
   private SparkPIDController pid;
   private RelativeEncoder encoder;
 
   public Flywheel() {
-    motor.restoreFactoryDefaults();
 
-    motor.setIdleMode(IdleMode.kCoast);
-    motor.setInverted(false);
+    flywheelMotor1.restoreFactoryDefaults();
+    flywheelMotor2 .restoreFactoryDefaults();
+    flywheelMotor3.restoreFactoryDefaults();
 
-    pid = motor.getPIDController();
-    encoder = motor.getEncoder();
+    flywheelMotor1.setIdleMode(IdleMode.kCoast);
+    flywheelMotor2 .setIdleMode(IdleMode.kCoast);
+   flywheelMotor3.setIdleMode(IdleMode.kCoast);
+
+    flywheelMotor1.setInverted(false);
+    flywheelMotor2 .setInverted(false);
+   flywheelMotor3.setInverted(false);
+
+    flywheelMotor2 .follow(flywheelMotor1);
+    flywheelMotor3.follow(flywheelMotor1);
+
+    pid = flywheelMotor1.getPIDController();
+    pid = flywheelMotor2 .getPIDController();
+    pid = flywheelMotor3.getPIDController();
+
+    encoder = flywheelMotor1.getEncoder();
+    encoder = flywheelMotor2 .getEncoder();
+    encoder = flywheelMotor3.getEncoder();
 
     pid.setP(0.1);
     pid.setI(0);
     pid.setD(0);
 
-    motor.burnFlash();
+    flywheelMotor1.burnFlash();
+    flywheelMotor2 .burnFlash();
+   flywheelMotor3.burnFlash();
   }
 
   @Override
@@ -42,19 +65,34 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void fulSpeedShot(){
-  setFlywheelVelocity(MotorsetPoint.FLYWHEEL_FUll_SPEED);
+    motorsetPoint = MotorsetPoint.FLYWHEEL_FUll_SPEED;
+    setFlywheelVelocity(MotorsetPoint.FLYWHEEL_FUll_SPEED);
   }
 
   public void halfSpeedShot(){
+    motorsetPoint = MotorsetPoint.FLYWHEEL_HALF_SPEED;
     setFlywheelVelocity(MotorsetPoint.FLYWHEEL_HALF_SPEED);
+  }
+
+  public void intakePiece(){
+    motorsetPoint = MotorsetPoint.FLYWHEEL_REVERSE;
+    setFlywheelVelocity(MotorsetPoint.FLYWHEEL_REVERSE);
   }
 
   public void stopShooter (){
     setFlywheelVelocity(0);
-    motor.stopMotor();
+    flywheelMotor1.stopMotor();
   }
 
   private void setFlywheelVelocity( double velocity){
     pid.setReference(velocity,ControlType.kVelocity);
+  }
+
+  private boolean isFlywheelAtSetPoint(){
+
+    double currentVelocity = encoder.getVelocity();
+    boolean isFlywheelAtSetPoint = Math.abs(currentVelocity-motorsetPoint) <= MotorsetPoint.FLYWHEEL_TOLERANCE;
+    return isFlywheelAtSetPoint;
+
   }
 }
