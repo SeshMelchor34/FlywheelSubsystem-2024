@@ -5,6 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.PrimeAndShoot;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Flywheel;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,14 +21,19 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+  private final Conveyor conveyor;
   private final Flywheel flywheel;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
+     private final CommandXboxController operatorController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
   public RobotContainer() {
     flywheel = new Flywheel();
+    conveyor = new Conveyor();
     // Configure the trigger bindings
     configureBindings();
   }
@@ -44,6 +51,8 @@ public class RobotContainer {
     driverController.a().onTrue( new InstantCommand(flywheel::fulSpeedShot));
     driverController.b().onTrue( new InstantCommand(flywheel::halfSpeedShot));
     driverController.x().onTrue( new InstantCommand(flywheel::stopShooter));
+
+    operatorController.a().onTrue( new PrimeAndShoot(flywheel,conveyor));
   }
 
   /**

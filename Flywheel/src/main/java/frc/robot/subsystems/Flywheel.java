@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CanIds;
-import frc.robot.Constants.MotorsetPoint;
+import frc.robot.Constants.MotorSetPoint;
 
 public class Flywheel extends SubsystemBase {
   
@@ -29,7 +29,7 @@ public class Flywheel extends SubsystemBase {
   public Flywheel() {
 
     flywheelMotor1.restoreFactoryDefaults();
-    flywheelMotor2 .restoreFactoryDefaults();
+    flywheelMotor2.restoreFactoryDefaults();
     flywheelMotor3.restoreFactoryDefaults();
 
     flywheelMotor1.setIdleMode(IdleMode.kCoast);
@@ -65,18 +65,18 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void fulSpeedShot(){
-    motorsetPoint = MotorsetPoint.FLYWHEEL_FUll_SPEED;
-    setFlywheelVelocity(MotorsetPoint.FLYWHEEL_FUll_SPEED);
+    motorsetPoint = MotorSetPoint.FLYWHEEL_FUll_SPEED;
+    setFlywheelVelocity(MotorSetPoint.FLYWHEEL_FUll_SPEED);
   }
 
   public void halfSpeedShot(){
-    motorsetPoint = MotorsetPoint.FLYWHEEL_HALF_SPEED;
-    setFlywheelVelocity(MotorsetPoint.FLYWHEEL_HALF_SPEED);
+    motorsetPoint = MotorSetPoint.FLYWHEEL_HALF_SPEED;
+    setFlywheelVelocity(MotorSetPoint.FLYWHEEL_HALF_SPEED);
   }
 
   public void intakePiece(){
-    motorsetPoint = MotorsetPoint.FLYWHEEL_REVERSE;
-    setFlywheelVelocity(MotorsetPoint.FLYWHEEL_REVERSE);
+    motorsetPoint = MotorSetPoint.FLYWHEEL_REVERSE;
+    setFlywheelVelocity(MotorSetPoint.FLYWHEEL_REVERSE);
   }
 
   public void stopShooter (){
@@ -84,14 +84,14 @@ public class Flywheel extends SubsystemBase {
     flywheelMotor1.stopMotor();
   }
 
-  private void setFlywheelVelocity( double velocity){
+  public void setFlywheelVelocity( double velocity){
     pid.setReference(velocity,ControlType.kVelocity);
   }
 
-  private boolean isFlywheelAtSetPoint(){
+  public boolean isFlywheelAtSetPoint(){
 
     double currentVelocity = encoder.getVelocity();
-    boolean isFlywheelAtSetPoint = Math.abs(currentVelocity-motorsetPoint) <= MotorsetPoint.FLYWHEEL_TOLERANCE;
+    boolean isFlywheelAtSetPoint = Math.abs(currentVelocity-motorsetPoint) <= MotorSetPoint.FLYWHEEL_TOLERANCE;
     return isFlywheelAtSetPoint;
 
   }

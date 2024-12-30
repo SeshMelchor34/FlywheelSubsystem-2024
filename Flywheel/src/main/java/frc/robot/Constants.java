@@ -15,21 +15,35 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+     public static final int kOperatorControllerPort = 1;
   }
 
 
   public static class CanIds {
+
     public static final int FLYWHEEL1 = 4;
      public static final int FLYWHEEL2 = 5;
       public static final int FLYWHEEL3 = 6;
+
+    public static final int CONVEYOR1 = 1;
+
+    public static final int ELEVATOR1 = 2;
+
   }
 
 
 
-  public static class MotorsetPoint{
+  public static class MotorSetPoint{
+
     public static final double FLYWHEEL_FUll_SPEED = 5000;
     public static final double FLYWHEEL_HALF_SPEED = 2500;
     public static final double FLYWHEEL_REVERSE = -5000;
+
     public static final double FLYWHEEL_TOLERANCE = 10 ;
+
+    public static final double ELEVATOR_MAX_HEIGHT = 50 ;
+    public static final double ELEVATOR_MIN_HEIGHT = 0 ;
+
+    public static final double ELEVATOR_TOLERANCE = 0.5 ;
   }
 }
