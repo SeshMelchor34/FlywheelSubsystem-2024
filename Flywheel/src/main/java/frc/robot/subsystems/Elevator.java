@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CanIds;
 import frc.robot.Constants.MotorSetPoint;
@@ -18,12 +20,11 @@ import frc.robot.Constants.MotorSetPoint;
 public class Elevator extends SubsystemBase {
 
   public CANSparkFlex elevatorMotor1 =  new CANSparkFlex (CanIds.ELEVATOR1,MotorType.kBrushless);
-
   private double setPointPosition = 0;
-
-
   private SparkPIDController pid;
   private RelativeEncoder encoder;
+
+  DigitalInput limitSwitch = new DigitalInput(0);
   
   public Elevator() {
     elevatorMotor1.restoreFactoryDefaults();
@@ -66,5 +67,10 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    boolean isLimitSwitchHit = limitSwitch.get();
+    if (isLimitSwitchHit){
+      encoder.setPosition(0);
+    }
+    SmartDashboard.putBoolean("Elevator Limit Switch", isLimitSwitchHit);
   }
 }
