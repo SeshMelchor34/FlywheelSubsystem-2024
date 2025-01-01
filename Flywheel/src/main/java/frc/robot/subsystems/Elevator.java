@@ -57,11 +57,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public boolean isElevatorAtSetPoint(){
-
     double encoderPosition = encoder.getPosition();
     boolean isElevatorAtSetPoint = Math.abs(encoderPosition-setPointPosition) <= MotorSetPoint. ELEVATOR_TOLERANCE;
     return isElevatorAtSetPoint;
-
   }
 
 
@@ -72,5 +70,7 @@ public class Elevator extends SubsystemBase {
       encoder.setPosition(0);
     }
     SmartDashboard.putBoolean("Elevator Limit Switch", isLimitSwitchHit);
+    SmartDashboard.putNumber("Elevator Set Position", setPointPosition);
+    SmartDashboard.putNumber("Elevator Potition", encoder.getPosition());
   }
 }

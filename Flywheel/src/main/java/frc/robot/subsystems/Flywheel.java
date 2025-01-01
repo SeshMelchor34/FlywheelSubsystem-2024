@@ -89,7 +89,6 @@ public class Flywheel extends SubsystemBase {
   }
 
   public boolean isFlywheelAtSetPoint(){
-
     double currentVelocity = encoder.getVelocity();
     boolean isFlywheelAtSetPoint = Math.abs(currentVelocity-motorsetPoint) <= MotorSetPoint.FLYWHEEL_TOLERANCE;
     return isFlywheelAtSetPoint;
