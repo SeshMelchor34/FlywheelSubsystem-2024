@@ -5,8 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ElevatorMinHeight;
+import frc.robot.commands.ElevatorTopHeight;
 import frc.robot.commands.PrimeAndShoot;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Flywheel;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -21,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+  private final Elevator elevator;
   private final Conveyor conveyor;
   private final Flywheel flywheel;
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -32,6 +36,7 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   public RobotContainer() {
+    elevator = new Elevator();
     flywheel = new Flywheel();
     conveyor = new Conveyor();
     // Configure the trigger bindings
@@ -53,6 +58,8 @@ public class RobotContainer {
     driverController.x().onTrue( new InstantCommand(flywheel::stopShooter));
 
     operatorController.a().onTrue( new PrimeAndShoot(flywheel,conveyor));
+    operatorController.b().onTrue( new ElevatorMinHeight(elevator));
+    operatorController.x().onTrue( new ElevatorTopHeight(elevator));
   }
 
   /**
