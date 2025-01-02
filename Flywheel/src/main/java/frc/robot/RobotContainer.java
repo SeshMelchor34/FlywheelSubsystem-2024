@@ -56,6 +56,7 @@ public class RobotContainer {
     driverController.a().onTrue( new InstantCommand(flywheel::fulSpeedShot));
     driverController.b().onTrue( new InstantCommand(flywheel::halfSpeedShot));
     driverController.x().onTrue( new InstantCommand(flywheel::stopShooter));
+    driverController.y().onTrue( new InstantCommand(flywheel::reverseFlywheel));
 
     operatorController.a().onTrue( new PrimeAndShoot(flywheel,conveyor));
     operatorController.b().onTrue( new ElevatorMinHeight(elevator));

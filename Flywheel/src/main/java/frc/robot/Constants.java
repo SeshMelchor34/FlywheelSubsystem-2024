@@ -26,7 +26,7 @@ public final class Constants {
       public static final int FLYWHEEL3 = 6;
 
     public static final int CONVEYOR1 = 1;
-
+    
     public static final int ELEVATOR1 = 2;
 
   }
@@ -40,6 +40,9 @@ public final class Constants {
     public static final double FLYWHEEL_REVERSE = -5000;
 
     public static final double FLYWHEEL_TOLERANCE = 10 ;
+
+    public static final int REVERSE_Conveyor = -500;
+    public static final int RUN_CONVEYOR = 1000;
 
     public static final double ELEVATOR_MAX_HEIGHT = 50 ;
     public static final double ELEVATOR_MIN_HEIGHT = 0 ;

@@ -74,7 +74,7 @@ public class Flywheel extends SubsystemBase {
     setFlywheelVelocity(MotorSetPoint.FLYWHEEL_HALF_SPEED);
   }
 
-  public void intakePiece(){
+  public void reverseFlywheel(){
     motorsetPoint = MotorSetPoint.FLYWHEEL_REVERSE;
     setFlywheelVelocity(MotorSetPoint.FLYWHEEL_REVERSE);
   }
