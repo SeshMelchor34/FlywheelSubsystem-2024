@@ -61,6 +61,7 @@ public class RobotContainer {
     operatorController.a().onTrue( new PrimeAndShoot(flywheel,conveyor));
     operatorController.b().onTrue( new ElevatorMinHeight(elevator));
     operatorController.x().onTrue( new ElevatorTopHeight(elevator));
+    operatorController.y().onTrue( new InstantCommand(conveyor::StopConveyor));
   }
 
   /**
