@@ -23,7 +23,8 @@ public class Conveyor extends SubsystemBase {
    
     conveyorMotor1.restoreFactoryDefaults();
     conveyorMotor1.setInverted(false);
-    
+    conveyorMotor1.setIdleMode(IdleMode.kCoast);
+
     pid = conveyorMotor1.getPIDController();
 
     pid.setP(0.1);

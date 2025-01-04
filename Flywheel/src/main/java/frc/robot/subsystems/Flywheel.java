@@ -44,12 +44,10 @@ public class Flywheel extends SubsystemBase {
     flywheelMotor3.follow(flywheelMotor1);
 
     pid = flywheelMotor1.getPIDController();
-    pid = flywheelMotor2 .getPIDController();
-    pid = flywheelMotor3.getPIDController();
+
 
     encoder = flywheelMotor1.getEncoder();
-    encoder = flywheelMotor2 .getEncoder();
-    encoder = flywheelMotor3.getEncoder();
+  
 
     pid.setP(0.1);
     pid.setI(0);
